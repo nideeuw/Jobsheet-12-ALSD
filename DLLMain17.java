@@ -29,12 +29,12 @@ public class DLLMain17 {
                     Mahasiswa17 mhs = inputMahasiswa(scan);
                     list.addLast(mhs);
                 }
-                // case 3 -> {
-                //     list.removeFirst();
-                // }
-                // case 4 -> {
-                //     list.removeLast();
-                // }
+                case 3 -> {
+                    list.removeFirst();
+                }
+                case 4 -> {
+                    list.removeLast();
+                }
                 case 5 -> {
                     list.print();
                 }
