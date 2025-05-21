@@ -101,4 +101,136 @@ public class DoubleLinkedList17 {
             tail.next = null;
         }
     }
+    public void add(int index, Mahasiswa17 data) {
+        if (index < 0) {
+            System.out.println("Indeks salah.");
+        } else if (index == 0) {
+            addFirst(data);
+        } else {
+            Node17 temp = head;
+            int i = 0;
+            while (temp != null && i < index - 1) {
+                temp = temp.next;
+                i++;
+            }
+            if (temp == null) {
+                System.out.println("Indeks melebihi jumlah elemen.");
+            } else if (temp.next == null) {
+                addLast(data);
+            } else {
+                Node17 newNode = new Node17(data);
+                newNode.next = temp.next;
+                newNode.prev = temp;
+                temp.next.prev = newNode;
+                temp.next = newNode;
+            }
+        }
+    }
+    public void removeAfter(String keyNim) {
+        Node17 current = head;
+
+        while (current != null && !current.data.nim.equals(keyNim)) {
+            current = current.next;
+        }
+        if (current == null || current.next == null) {
+            System.out.println("Tidak ada node yang bisa dihapus setelah NIM tersebut.");
+            return;
+        }
+
+        Node17 toDelete = current.next;
+        current.next = toDelete.next;
+
+        if (toDelete.next != null) {
+            toDelete.next.prev = current;
+        } else {
+            tail = current;
+        }
+        System.out.println("Data setelah NIM " + keyNim + " berhasil dihapus:");
+        toDelete.data.tampil();
+    }
+    public void remove(int index) {
+        if (isEmpty()) {
+            System.out.println("Linked List kosong.");
+            return;
+        }
+        if (index < 0) {
+            System.out.println("Indeks tidak valid.");
+            return;
+        }
+        if (index == 0) {
+            removeFirst();
+            return;
+        }
+
+        Node17 current = head;
+        int currentIndex = 0;
+
+        while (current != null && currentIndex < index) {
+            current = current.next;
+            currentIndex++;
+        }
+        if (current == null) {
+            System.out.println("Indeks melebihi jumlah data.");
+        } else {
+            if (current == tail) {
+                removeLast();
+            } else {
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+                System.out.println("Data pada indeks " + index + " berhasil dihapus:");
+                current.data.tampil();
+            }
+        }
+    }
+
+    Mahasiswa17 getFirst() {
+        if (!isEmpty()) {
+            return head.data;
+        }
+        return null;
+    }
+
+    Mahasiswa17 getLast() {
+        if (!isEmpty()) {
+            return tail.data;
+        }
+        return null;
+    }
+
+    Mahasiswa17 getIndex(int index) {
+        if (index < 0 || isEmpty()) {
+            return null;
+        }
+        Node17 current = head;
+        int currentIndex = 0;
+
+        while (current != null && currentIndex < index) {
+            current = current.next;
+            currentIndex++;
+        }
+        if (current != null) {
+            return current.data;
+        }
+        return null;
+    }
+
+    int getSize() {
+        int count = 0;
+        Node17 current = head;
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        return count;
+    }
+     Node17 search(String nim) {
+        Node17 current = head;
+        while (current != null) {
+            if (current.data.nim.equalsIgnoreCase(nim)) {
+                return current;
+            }
+            current = current.next;
+        }
+        return null;
+    }
 }
