@@ -77,10 +77,13 @@ public class DoubleLinkedList17 {
         if (isEmpty()) {
             System.out.println("List kosong, tidak dapat dihapus");
             return;
-        }
-        if (head == tail) {
+        } else if (head == tail) {
+            System.out.println("Data sudah berhasil dihapus. Data yang terhapus adalah:");
+            head.data.tampil();
             head = tail = null;
-        }else {
+        } else {
+            System.out.println("Data sudah berhasil dihapus. Data yang terhapus adalah:");
+            head.data.tampil();
             head = head.next;
             head.prev = null;
         }
